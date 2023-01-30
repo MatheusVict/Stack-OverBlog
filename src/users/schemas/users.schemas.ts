@@ -12,9 +12,6 @@ export class User extends mongoose.Document {
   @Prop()
   password: string;
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'posts' }] })
-  postsId: string[];
-
   @Prop()
   isAdm: number;
 }
