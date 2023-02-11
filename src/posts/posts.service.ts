@@ -19,6 +19,8 @@ export class PostsService {
     try {
       const user = await this.usersService.getOneForId(data.idUser);
 
+      //fazer o split do slug
+
       if (!user) throw new BadRequestException(`User ${data.idUser} not found`);
 
       const post = new this.postsModel(data);
