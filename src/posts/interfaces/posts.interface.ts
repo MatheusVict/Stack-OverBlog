@@ -3,6 +3,6 @@ export interface PostsInterface {
   slug: string;
   content: string;
   idUser: string;
-  idComentarys: string[];
+  idComentarys?: string[];
   likes?: any[];
 }
