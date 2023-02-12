@@ -7,6 +7,9 @@ export class Posts extends mongoose.Document {
   slug: string;
 
   @Prop()
+  title: string;
+
+  @Prop()
   content: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'users' })
