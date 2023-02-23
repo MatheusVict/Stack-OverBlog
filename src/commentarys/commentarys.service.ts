@@ -1,9 +1,15 @@
-import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Commentarys } from './schemas/commentarys.schemas';
 import { PostsService } from 'src/posts/posts.service';
-import { createCommentaryDTO } from './dto/create-commentarys.dto';
+import { UpdateCommentaryDTO } from './dto/update-commentarys.dto';
+import { CreateCommentaryDTO } from './dto/create-commentarys.dto';
 
 @Injectable()
 export class CommentarysService {
@@ -40,7 +46,7 @@ export class CommentarysService {
     }
   }
 
-  async createCommentary(idPost: string, body: createCommentaryDTO) {
+  async createCommentary(idPost: string, body: CreateCommentaryDTO) {
     try {
       const post = await this.postsServices.getOneForId(idPost);
 
@@ -50,6 +56,37 @@ export class CommentarysService {
       commentarys.idPost = idPost;
 
       await commentarys.save();
+    } catch (error) {
+      this.logger.error(error.message);
+      throw new BadRequestException(error.message);
+    }
+  }
+
+  async updateCommentary(idComment: string, body: UpdateCommentaryDTO) {
+    try {
+      const commentarys = await this.commentarysModel.findById(idComment);
+
+      if (!commentarys)
+        throw new NotFoundException(`the commentary ${idComment} not found`);
+
+      await this.commentarysModel.findOneAndUpdate(
+        { _id: idComment },
+        { $set: body },
+      );
+    } catch (error) {
+      this.logger.error(error.message);
+      throw new BadRequestException(error.message);
+    }
+  }
+
+  async deleteCommentary(idComment: string) {
+    try {
+      const commentary = await this.commentarysModel.findById(idComment);
+
+      if (!commentary)
+        throw new NotFoundException(`the commentary ${idComment} not found`);
+
+      await this.commentarysModel.findByIdAndDelete(idComment);
     } catch (error) {
       this.logger.error(error.message);
       throw new BadRequestException(error.message);
