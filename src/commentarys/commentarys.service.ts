@@ -27,7 +27,11 @@ export class CommentarysService {
 
       if (!post) throw new BadRequestException('The post does not exist');
 
-      return await this.commentarysModel.find().where('idPost').in(idPost);
+      return await this.commentarysModel
+        .find()
+        .where('idPost')
+        .in(idPost)
+        .populate('userId');
     } catch (error) {
       this.logger.error(error.message);
       throw new BadRequestException(error.message);
@@ -36,10 +40,17 @@ export class CommentarysService {
 
   async getOneCommentaryForPost(idPost: any, idComment: string) {
     try {
-      return await this.commentarysModel
+      const commentary = await this.commentarysModel
         .findById(idComment)
         .where('idPost')
-        .in(idPost);
+        .in(idPost)
+        .populate('userId');
+      // populate é o nome do campo no schema
+
+      if (!commentary)
+        throw new NotFoundException(`Commentary: ${idComment} not found`);
+
+      return commentary;
     } catch (error) {
       this.logger.error(error.message);
       throw new BadRequestException(error.message);
