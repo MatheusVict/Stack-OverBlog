@@ -22,7 +22,7 @@ export class CommentarysController {
   }
 
   @Get(':idComment')
-  async getCommentForId(
+  async getCommentForPost(
     @Param('idComment') idComment: string,
     @Query('idPost') idPost: string,
   ) {
