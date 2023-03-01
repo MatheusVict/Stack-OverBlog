@@ -7,11 +7,14 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { CommentarysService } from './commentarys.service';
 import { CreateCommentaryDTO } from './dto/create-commentarys.dto';
 import { UpdateCommentaryDTO } from './dto/update-commentarys.dto';
+import { AuthGuard } from '@nestjs/passport';
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('commentarys')
 export class CommentarysController {
   constructor(private readonly commentarysServices: CommentarysService) {}

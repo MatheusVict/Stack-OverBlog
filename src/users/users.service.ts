@@ -53,6 +53,15 @@ export class UsersService {
     }
   }
 
+  async getUserByEmail(email: string) {
+    try {
+      return this.usersModel.findOne({ email });
+    } catch (error) {
+      this.logger.error(error.message);
+      throw new BadRequestException(error.message);
+    }
+  }
+
   async update(id: string, user: UpdateUserDTO): Promise<void> {
     try {
       const userFind = await this.usersModel.findById(id);
