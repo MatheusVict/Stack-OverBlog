@@ -46,7 +46,7 @@ export class PostsService {
 
   async getAllPosts() {
     try {
-      return await this.postsModel.find();
+      return await this.postsModel.find().populate('idUser');
     } catch (error) {
       this.logger.log(JSON.stringify(error.message));
       throw new BadRequestException(error.message);
@@ -55,7 +55,7 @@ export class PostsService {
 
   async getOneForId(id: string) {
     try {
-      const post = await this.postsModel.findById(id);
+      const post = await this.postsModel.findById(id).populate('idUser');
 
       if (!post) throw new NotFoundException(`Post ${id} not found`);
 
@@ -68,7 +68,15 @@ export class PostsService {
 
   async getOneForSlug(slug: any) {
     try {
-      return await this.postsModel.find().where('slug').in(slug);
+      const post = await this.postsModel
+        .find()
+        .where('slug')
+        .in(slug)
+        .populate('idUser');
+
+      if (!post) throw new NotFoundException(`Post: ${slug} ot found`);
+
+      return post;
     } catch (error) {
       this.logger.log(JSON.stringify(error.message));
       throw new BadRequestException(error.message);
