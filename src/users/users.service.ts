@@ -42,7 +42,7 @@ export class UsersService {
 
   async getOneForId(id: string): Promise<Partial<User>> {
     try {
-      const userFind = await this.usersModel.findById(id).select('-password');
+      const userFind = await this.usersModel.findById(id);
 
       if (!userFind) throw new NotFoundException('User not found');
 
