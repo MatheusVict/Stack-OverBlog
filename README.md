@@ -42,7 +42,7 @@ This an API for my personal blog
 **This is a Bearer token**
 
 
-### Create User
+### Create a User
 
 ```POST```
 #### /users
@@ -91,7 +91,7 @@ Status code: ```201``` ```Created```
 Status code: ```200``` ```ok``` 
 
 
-### Get one user for ID
+### Get one user from ID
 
 ```GET```
 #### /users/?userId={UserId}
@@ -112,10 +112,10 @@ Status code: ```200``` ```ok```
 Status code: ```200``` ```ok``` 
 
 
-### Update user
+### Update a user
 
 ```PUT```
-#### /users/{UserId}BOdy
+#### /users/{UserId}
 **Body:**
 
 ```ruby
@@ -129,7 +129,7 @@ Status code: ```200``` ```ok```
 
 Status code: ```200``` ```ok``` 
 
-### delete user
+### delete a user
 
 ```DELETE```
 #### /users/{UserId}
@@ -152,7 +152,7 @@ Status code: ```204``` ```No Content```
 {
   "title": String,
   "content": String,
-  "idUser":  ObjectId("A mongo's Id")
+  "idUser":  ObjectId("User Id")
 }
 ```
 
@@ -160,7 +160,7 @@ Status code: ```204``` ```No Content```
 
 Status code: ```201``` ```Created``` 
 
-### Get a post for ID
+### Get a post from ID
 
 ```GET```
 #### /posts/?IdPost={PostId}
@@ -173,7 +173,7 @@ Status code: ```201``` ```Created```
   "title": String,
   "content": String,
   "idUser": {
-    "_id": ObjectId,
+    "_id": String,
     "name": String,
     "email": String,
     "createdAt": "2023-01-31T00:12:22.123Z",
@@ -189,7 +189,7 @@ Status code: ```201``` ```Created```
 
 Status code: ```200``` ```ok``` 
 
-### Get a post for slug
+### Get a post from slug
 
 ```GET```
 #### /posts/?slugPost={PostSlug}
@@ -202,7 +202,7 @@ Status code: ```200``` ```ok```
   "title": String,
   "content": String,
   "idUser": {
-    "_id": ObjectId,
+    "_id": String,
     "name": String,
     "email": String,
     "createdAt": "2023-01-31T00:12:22.123Z",
@@ -254,7 +254,7 @@ Status code: ```200``` ```ok```
 ### Update a Post
 
 ```PUT```
-#### /posts/PostId
+#### /posts/{PostId}
 
 **Body:**
 
@@ -273,8 +273,100 @@ Status code: ```200``` ```ok```
 ### Delete a Post
 
 ```DELETE```
-#### /posts/PostId
+#### /posts/{PostId}
 
 **Return:**
 
 Status code: ```204``` ```No Content``` 
+
+
+
+### Get all commentarys from post
+
+```GET```
+#### /commentarys/?idPost={PostId}
+
+**Return:**
+
+```ruby
+ [
+   {
+    "_id": String,
+    "userId": {
+      "_id": ObjectId,
+      "name": String,
+      "email": String,
+      "createdAt": "2023-01-31T00:12:22.123Z",
+      "updatedAt": "2023-02-06T23:55:45.965Z",
+      "__v": 0
+    },
+    "content": String,
+    "likes": [],
+    "idPost": String,
+    "createdAt": "2023-02-23T00:04:01.141Z",
+    "updatedAt": "2023-02-23T00:08:52.272Z",
+    "__v": 0
+  }
+ ]
+```
+
+Status code: ```200``` ```ok``` 
+
+### Get one commentary from post
+
+```GET```
+#### /commentarys/{CommentaryId}/?idPost={PostId}
+
+**Return:**
+
+```ruby
+ [
+   {
+    "_id": String,
+    "userId": {
+      "_id": ObjectId,
+      "name": String,
+      "email": String,
+      "createdAt": "2023-01-31T00:12:22.123Z",
+      "updatedAt": "2023-02-06T23:55:45.965Z",
+      "__v": 0
+    },
+    "content": String,
+    "likes": [],
+    "idPost": String,
+    "createdAt": "2023-02-23T00:04:01.141Z",
+    "updatedAt": "2023-02-23T00:08:52.272Z",
+    "__v": 0
+  }
+ ]
+```
+
+Status code: ```200``` ```ok``` 
+
+
+### Update a Comentary
+
+```PUT```
+#### /commentarys/{CommentaryId}
+**Body:**
+
+```ruby
+{
+  "content": String
+}
+```
+
+**Return:**
+
+Status code: ```200``` ```ok``` 
+
+
+
+### Delete a Comentary
+
+```DELETE```
+#### /commentarys/{CommentaryId}
+
+**Return:**
+
+Status code: ```204``` ```No contente``` 
