@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Patch,
   Post,
@@ -44,6 +46,7 @@ export class CommentarysController {
   }
 
   @Patch(':idComment')
+  @HttpCode(HttpStatus.NO_CONTENT)
   async updateCommentary(
     @Param('idComment') idComment: string,
     @Body() body: UpdateCommentaryDTO,
@@ -52,6 +55,7 @@ export class CommentarysController {
   }
 
   @Delete(':idComment')
+  @HttpCode(HttpStatus.NO_CONTENT)
   async deleteCommentary(@Param('idComment') idComment: string) {
     await this.commentarysServices.deleteCommentary(idComment);
   }

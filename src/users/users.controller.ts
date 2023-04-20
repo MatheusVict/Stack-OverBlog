@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Post,
   Put,
@@ -32,12 +34,14 @@ export class UsersController {
   }
 
   @UseGuards(AuthGuard('jwt'))
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Put(':id')
   async updateUser(@Param('id') id: string, @Body() user: UpdateUserDTO) {
     await this.usersService.update(id, user);
   }
 
   @UseGuards(AuthGuard('jwt'))
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
   async deleteUser(@Param('id') id: string) {
     await this.usersService.deleteUser(id);
