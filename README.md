@@ -87,5 +87,52 @@ Status code: ```201``` ```Created```
 ]
 ```
 
-Status code: ```201``` ```Created``` 
+Status code: ```200``` ```ok``` 
 
+
+### Get one user for ID
+
+```GET```
+#### /users/?userId={UserId}
+
+**Return:**
+
+```ruby
+{
+  "_id": String,
+  "name": String,
+  "email": String,
+  "createdAt": "2023-01-31T00:12:22.123Z",
+  "updatedAt": "2023-02-06T23:55:45.965Z",
+  "__v": 0
+}
+```
+
+Status code: ```200``` ```ok``` 
+
+
+### Update user
+
+```PUT```
+#### /users/{UserId}BOdy
+**Body:**
+
+```ruby
+{
+  "name": String,
+  "password": String,
+}
+```
+
+**Return:**
+
+Status code: ```200``` ```ok``` 
+
+### delete user
+
+```DELETE```
+#### /users/{UserId}
+
+**Return:**
+
+Status code: ```204``` ```No Content``` 
