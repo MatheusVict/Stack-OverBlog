@@ -15,6 +15,7 @@ This an API for my personal blog
 - open on port 3000
 
 ## Endpoints
+### User's Endpointer
 
 ### Login
 
@@ -132,6 +133,147 @@ Status code: ```200``` ```ok```
 
 ```DELETE```
 #### /users/{UserId}
+
+**Return:**
+
+Status code: ```204``` ```No Content``` 
+
+### Post's endpoint
+
+
+### Create one post
+
+```POST```
+#### /posts
+
+**Body:**
+
+```ruby
+{
+  "title": String,
+  "content": String,
+  "idUser":  ObjectId("A mongo's Id")
+}
+```
+
+**Return:**
+
+Status code: ```201``` ```Created``` 
+
+### Get a post for ID
+
+```GET```
+#### /posts/?IdPost={PostId}
+
+**Return:**
+
+```ruby
+{
+  "_id": String,
+  "title": String,
+  "content": String,
+  "idUser": {
+    "_id": ObjectId,
+    "name": String,
+    "email": String,
+    "createdAt": "2023-01-31T00:12:22.123Z",
+    "updatedAt": "2023-02-06T23:55:45.965Z",
+    "__v": 0
+  },
+  "slug": String,
+  "createdAt": "2023-02-11T22:32:10.691Z",
+  "updatedAt": "2023-02-11T23:43:53.269Z",
+  "__v": 0
+}
+```
+
+Status code: ```200``` ```ok``` 
+
+### Get a post for slug
+
+```GET```
+#### /posts/?slugPost={PostSlug}
+
+**Return:**
+
+```ruby
+{
+  "_id": String,
+  "title": String,
+  "content": String,
+  "idUser": {
+    "_id": ObjectId,
+    "name": String,
+    "email": String,
+    "createdAt": "2023-01-31T00:12:22.123Z",
+    "updatedAt": "2023-02-06T23:55:45.965Z",
+    "__v": 0
+  },
+  "slug": String,
+  "createdAt": "2023-02-11T22:32:10.691Z",
+  "updatedAt": "2023-02-11T23:43:53.269Z",
+  "__v": 0
+}
+```
+
+Status code: ```200``` ```ok``` 
+
+
+### Get all post
+
+```GET```
+#### /posts
+
+**Return:**
+
+```ruby
+[
+    {
+    "_id": String,
+    "title": String,
+    "content": String,
+    "idUser": {
+      "_id": ObjectId,
+      "name": String,
+      "email": String,
+      "createdAt": "2023-01-31T00:12:22.123Z",
+      "updatedAt": "2023-02-06T23:55:45.965Z",
+      "__v": 0
+    },
+    "slug": String,
+    "createdAt": "2023-02-11T22:32:10.691Z",
+    "updatedAt": "2023-02-11T23:43:53.269Z",
+    "__v": 0
+   }
+]
+```
+
+Status code: ```200``` ```ok``` 
+
+
+### Update a Post
+
+```PUT```
+#### /posts/PostId
+
+**Body:**
+
+```ruby
+{
+  "title": String,
+  "content": String
+}
+```
+
+**Return:**
+
+Status code: ```200``` ```ok``` 
+
+
+### Delete a Post
+
+```DELETE```
+#### /posts/PostId
 
 **Return:**
 
