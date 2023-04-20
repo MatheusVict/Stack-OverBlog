@@ -228,7 +228,7 @@ Status code: ```200``` ```ok```
 
 ```ruby
 [
-    {
+  {
     "_id": String,
     "title": String,
     "content": String,
@@ -244,7 +244,7 @@ Status code: ```200``` ```ok```
     "createdAt": "2023-02-11T22:32:10.691Z",
     "updatedAt": "2023-02-11T23:43:53.269Z",
     "__v": 0
-   }
+  }
 ]
 ```
 
@@ -290,7 +290,7 @@ Status code: ```204``` ```No Content```
 
 ```ruby
  [
-   {
+  {
     "_id": String,
     "userId": {
       "_id": ObjectId,
@@ -321,7 +321,7 @@ Status code: ```200``` ```ok```
 
 ```ruby
  [
-   {
+  {
     "_id": String,
     "userId": {
       "_id": ObjectId,
