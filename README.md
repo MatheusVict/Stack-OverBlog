@@ -371,5 +371,5 @@ Status code: ```200``` ```ok```
 
 Status code: ```204``` ```No contente``` 
 
-### Comentary's endpoint
+### Like's endpoint
 **Coming soon**
