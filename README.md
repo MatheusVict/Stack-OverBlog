@@ -127,7 +127,7 @@ Status code: ```200``` ```ok```
 
 **Return:**
 
-Status code: ```200``` ```ok``` 
+Status code: ```204``` ```No Content``` 
 
 ### delete a user
 
@@ -267,8 +267,7 @@ Status code: ```200``` ```ok```
 
 **Return:**
 
-Status code: ```200``` ```ok``` 
-
+Status code: ```204``` ```No Content```  
 
 ### Delete a Post
 
@@ -346,7 +345,7 @@ Status code: ```200``` ```ok```
 
 ### Update a Comentary
 
-```PUT```
+```PATCH```
 #### /commentarys/{CommentaryId}
 **Body:**
 
@@ -358,9 +357,7 @@ Status code: ```200``` ```ok```
 
 **Return:**
 
-Status code: ```200``` ```ok``` 
-
-
+Status code: ```204``` ```No Content``` 
 
 ### Delete a Comentary
 
