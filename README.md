@@ -370,3 +370,6 @@ Status code: ```200``` ```ok```
 **Return:**
 
 Status code: ```204``` ```No contente``` 
+
+### Comentary's endpoint
+**Coming soon**
