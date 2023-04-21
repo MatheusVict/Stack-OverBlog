@@ -33,7 +33,7 @@ export class UsersService {
 
   async getAll(): Promise<User[]> {
     try {
-      return await this.usersModel.find();
+      return await this.usersModel.find().select('-password');
     } catch (error) {
       this.logger.error(error.message);
       throw new BadRequestException(error.message);
