@@ -1,5 +1,8 @@
 # API stack-overBlog
 
+![LICENSE](https://img.shields.io/github/license/MatheusVict/Stack-OverBlog.svg)
+![Views](https://img.shields.io/github/watchers/MatheusVict/Stack-OverBlog.svg)
+
 This an API for my personal blog
 
 - node: 18.14.0
