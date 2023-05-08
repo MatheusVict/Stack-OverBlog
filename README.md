@@ -17,6 +17,16 @@ This an API for my personal blog
 - run in your terminal ```yarn start:dev```
 - open on port 3000
 
+**or use Docker**
+
+```
+docker build --pull --rm -f "Dockerfile" -t portifolioblog:latest "."
+```
+
+```
+docker run portifolioblog
+```
+
 ## Endpoints
 ### User's Endpointer
 
