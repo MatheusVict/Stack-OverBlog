@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { compareSync } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/users.service';
 import { User } from 'src/users/schemas/users.schemas';
+import { OAuthCredentials } from './interfaces/OAuthCredentials.interface';
 
 @Injectable()
 export class AuthService {
@@ -17,6 +18,28 @@ export class AuthService {
     return {
       token: this.jwtService.sign(payload),
     };
+  }
+
+  async loginWithGoogle(credentials: OAuthCredentials) {
+    try {
+      const userExists = await this.usersService.getUserByEmail(
+        credentials.email,
+      );
+
+      if (!userExists) {
+        const createdUser = await this.usersService.createUser({
+          email: credentials.email,
+          name: credentials.name,
+          password: 'oauth-password',
+        });
+
+        return createdUser;
+      } else {
+        return userExists;
+      }
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
   }
 
   async validateUser(email: string, password: string) {

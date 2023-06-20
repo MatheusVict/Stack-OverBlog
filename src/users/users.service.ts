@@ -20,11 +20,11 @@ export class UsersService {
 
   private readonly logger = new Logger(UsersService.name);
 
-  async createUser(user: UserCreateDTO): Promise<void> {
+  async createUser(user: UserCreateDTO): Promise<User> {
     try {
       user.password = hashSync(user.password, 10);
       const userCreated = new this.usersModel(user);
-      await userCreated.save();
+      return await userCreated.save();
     } catch (error) {
       this.logger.error(error.message);
       throw new BadRequestException(error.message);

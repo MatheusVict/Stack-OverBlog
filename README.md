@@ -19,11 +19,11 @@ This an API for my personal blog
 
 **or use Docker**
 
-```
+```docker
 docker build --pull --rm -f "Dockerfile" -t portifolioblog:latest "."
 ```
 
-```
+```docker
 docker run portifolioblog
 ```
 
@@ -38,7 +38,7 @@ docker run portifolioblog
 
 **Body:**
 
-```ruby
+```json
 {
   "email": String
   "password": String
@@ -47,7 +47,7 @@ docker run portifolioblog
 
 **Return:**
 
-```ruby
+```json
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGUiLCJlbWFpbCI6Im1hdGhldXMxQGd"
 }
@@ -62,7 +62,7 @@ docker run portifolioblog
 
 **Body:**
 
-```ruby
+```json
 {
   "name": String,
   "email": String,
@@ -80,7 +80,7 @@ Status code: ```201``` ```Created```
 
 **Return:**
 
-```ruby
+```json
 [
   {
     "_id": String,
@@ -111,7 +111,7 @@ Status code: ```200``` ```ok```
 
 **Return:**
 
-```ruby
+```json
 {
   "_id": String,
   "name": String,
@@ -131,7 +131,7 @@ Status code: ```200``` ```ok```
 #### /users/{UserId}
 **Body:**
 
-```ruby
+```json
 {
   "name": String,
   "password": String,
@@ -161,7 +161,7 @@ Status code: ```204``` ```No Content```
 
 **Body:**
 
-```ruby
+```json
 {
   "title": String,
   "content": String,
@@ -180,7 +180,7 @@ Status code: ```201``` ```Created```
 
 **Return:**
 
-```ruby
+```json
 {
   "_id": String,
   "title": String,
@@ -209,7 +209,7 @@ Status code: ```200``` ```ok```
 
 **Return:**
 
-```ruby
+```json
 {
   "_id": String,
   "title": String,
@@ -239,7 +239,7 @@ Status code: ```200``` ```ok```
 
 **Return:**
 
-```ruby
+```json
 [
   {
     "_id": String,
@@ -271,7 +271,7 @@ Status code: ```200``` ```ok```
 
 **Body:**
 
-```ruby
+```json
 {
   "title": String,
   "content": String
@@ -289,7 +289,7 @@ Status code: ```204``` ```No Content```
 
 **Return:**
 
-Status code: ```204``` ```No Content``` 
+Status coderuby: ```204``` ```No Content``` 
 
 
 
@@ -300,7 +300,7 @@ Status code: ```204``` ```No Content```
 
 **Return:**
 
-```ruby
+```json
  [
   {
     "_id": String,
@@ -331,7 +331,7 @@ Status code: ```200``` ```ok```
 
 **Return:**
 
-```ruby
+```json
  [
   {
     "_id": String,
@@ -362,7 +362,7 @@ Status code: ```200``` ```ok```
 #### /commentarys/{CommentaryId}
 **Body:**
 
-```ruby
+```json
 {
   "content": String
 }
