@@ -35,10 +35,23 @@ export class AuthService {
           name: credentials.name,
           password: 'oauth-password',
         });
+        const payload = { id: createdUser.id, email: createdUser.email };
 
-        return createdUser;
+        return {
+          id: createdUser.id,
+          token: this.jwtService.sign(payload),
+          name: createdUser.name,
+          email: createdUser.email,
+        };
       } else {
-        return userExists;
+        const payload = { id: userExists.id, email: userExists.email };
+
+        return {
+          id: userExists.id,
+          token: this.jwtService.sign(payload),
+          name: userExists.name,
+          email: userExists.email,
+        };
       }
     } catch (error) {
       throw new BadRequestException(error);
