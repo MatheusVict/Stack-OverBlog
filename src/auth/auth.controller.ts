@@ -58,8 +58,18 @@ export class AuthController {
       });
 
       const { data } = await octokit.request('GET /user');
+      const { data: emails } = await octokit.request('GET /user/emails');
 
+      const primaryEmail = emails.find((email) => email.primary);
+
+      console.log('E-mail do usuário:', primaryEmail.email);
       console.log('Usuário autenticado:', JSON.stringify(data));
+
+      return await this.authService.loginWithGitHub({
+        email: primaryEmail.email,
+        name: data.name,
+        picture: data.avatar_url,
+      });
     } catch (error) {
       throw new UnauthorizedException('Invalid access token' + error);
     }

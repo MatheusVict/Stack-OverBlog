@@ -58,6 +58,41 @@ export class AuthService {
     }
   }
 
+  async loginWithGitHub(credentials: OAuthCredentials) {
+    try {
+      const userExists = await this.usersService.getUserByEmail(
+        credentials.email,
+      );
+
+      if (!userExists) {
+        const createdUser = await this.usersService.createUser({
+          email: credentials.email,
+          name: credentials.name,
+          password: 'oauth-password',
+        });
+        const payload = { id: createdUser.id, email: createdUser.email };
+
+        return {
+          id: createdUser.id,
+          token: this.jwtService.sign(payload),
+          name: createdUser.name,
+          email: createdUser.email,
+        };
+      } else {
+        const payload = { id: userExists.id, email: userExists.email };
+
+        return {
+          id: userExists.id,
+          token: this.jwtService.sign(payload),
+          name: userExists.name,
+          email: userExists.email,
+        };
+      }
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
+  }
+
   async validateUser(email: string, password: string) {
     let user: User;
 
