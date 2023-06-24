@@ -10,6 +10,8 @@ import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { Request } from 'express';
 import { OAuth2Client } from 'google-auth-library';
+import { createOAuthAppAuth } from '@octokit/auth-oauth-app';
+import { Octokit } from '@octokit/core';
 
 @Controller('auth')
 export class AuthController {
@@ -44,6 +46,22 @@ export class AuthController {
       });
     } catch (error) {
       throw new UnauthorizedException('Invalid access token');
+    }
+  }
+
+  @Post('login/github')
+  async loginWithGitHub(@Body('access_token') token: any) {
+    console.log(JSON.stringify(token));
+    try {
+      const octokit = new Octokit({
+        auth: token,
+      });
+
+      const { data } = await octokit.request('GET /user');
+
+      console.log('Usuário autenticado:', JSON.stringify(data));
+    } catch (error) {
+      throw new UnauthorizedException('Invalid access token' + error);
     }
   }
 }
