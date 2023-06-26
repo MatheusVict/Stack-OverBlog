@@ -68,7 +68,9 @@ export class UsersService {
 
       if (!userFind) throw new NotFoundException('User Not Found');
 
-      user.password = hashSync(user.password, 10);
+      if (user.password) {
+        user.password = hashSync(user.password, 10);
+      }
 
       await this.usersModel.findOneAndUpdate({ _id: id }, { $set: user });
     } catch (error) {

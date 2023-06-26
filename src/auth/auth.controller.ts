@@ -38,6 +38,7 @@ export class AuthController {
       });
 
       const payload = await ticket.getPayload();
+      console.log(JSON.stringify(payload));
 
       return await this.authService.loginWithGoogle({
         email: payload.email,
