@@ -1,6 +1,7 @@
 import {
   IsEmail,
   IsNotEmpty,
+  IsOptional,
   IsString,
   IsStrongPassword,
 } from 'class-validator';
@@ -24,4 +25,7 @@ export class UserCreateDTO {
     minUppercase: 1,
   })
   password: string;
+
+  @IsOptional()
+  picture: string;
 }

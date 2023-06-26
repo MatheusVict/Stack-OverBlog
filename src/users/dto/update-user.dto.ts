@@ -1,12 +1,12 @@
-import { IsNotEmpty, IsString, IsStrongPassword } from 'class-validator';
+import { IsOptional, IsString, IsStrongPassword } from 'class-validator';
 
 export class UpdateUserDTO {
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   name: string;
 
-  @IsNotEmpty()
   @IsString()
+  @IsOptional()
   @IsStrongPassword({
     minLength: 8,
     minNumbers: 1,
@@ -14,4 +14,7 @@ export class UpdateUserDTO {
     minUppercase: 1,
   })
   password: string;
+
+  @IsOptional()
+  picture: string;
 }
