@@ -10,9 +10,10 @@ import { User } from './schemas/users.schemas';
 import { UserCreateDTO } from './dto/user-create.dto';
 import { hashSync } from 'bcrypt';
 import { UpdateUserDTO } from './dto/update-user.dto';
+import { IUserService } from './interfaces/IUserService.interface';
 
 @Injectable()
-export class UsersService {
+export class UsersService implements IUserService {
   constructor(
     @InjectModel('users')
     private readonly usersModel: Model<User>,

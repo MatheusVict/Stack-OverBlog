@@ -10,9 +10,10 @@ import { Posts } from './schemas/posts.schema';
 import { CreatePostsDTO } from './dto/create-posts.dto';
 import { UsersService } from 'src/users/users.service';
 import { UpdatePostsDTO } from './dto/update-posts.dto';
+import { IPostsService } from './interfaces/IPostsService.interface';
 
 @Injectable()
-export class PostsService {
+export class PostsService implements IPostsService {
   constructor(
     @InjectModel('posts')
     private readonly postsModel: Model<Posts>,
