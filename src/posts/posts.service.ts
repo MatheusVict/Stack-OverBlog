@@ -30,18 +30,11 @@ export class PostsService implements IPostsService {
 
       const post = new this.postsModel(data);
 
-      const titleLowerCase = data.title.toLocaleLowerCase();
-
-      const titleSplited = titleLowerCase.split(' ');
-
-      const slug = titleSplited.join('-');
-
-      post.slug = slug;
+      post.slug = this.getSlug(post.title);
 
       await post.save();
     } catch (error) {
-      this.logger.log(JSON.stringify(error.message));
-      throw new BadRequestException(error.message);
+      this.handleError(error);
     }
   }
 
@@ -49,8 +42,7 @@ export class PostsService implements IPostsService {
     try {
       return await this.postsModel.find().populate('idUser');
     } catch (error) {
-      this.logger.log(JSON.stringify(error.message));
-      throw new BadRequestException(error.message);
+      this.handleError(error);
     }
   }
 
@@ -62,8 +54,7 @@ export class PostsService implements IPostsService {
 
       return post;
     } catch (error) {
-      this.logger.log(JSON.stringify(error.message));
-      throw new BadRequestException(error.message);
+      this.handleError(error);
     }
   }
 
@@ -79,8 +70,7 @@ export class PostsService implements IPostsService {
 
       return post;
     } catch (error) {
-      this.logger.log(JSON.stringify(error.message));
-      throw new BadRequestException(error.message);
+      this.handleError(error);
     }
   }
 
@@ -90,18 +80,11 @@ export class PostsService implements IPostsService {
 
       if (!post) throw new NotFoundException(`Post ${_id} not found`);
 
-      const titleLowerCase = data.title.toLocaleLowerCase();
-
-      const titleSplited = titleLowerCase.split(' ');
-
-      const slug = titleSplited.join('-');
-
-      data.slug = slug;
+      data.slug = this.getSlug(data.title);
 
       await this.postsModel.findOneAndUpdate({ _id }, { $set: data });
     } catch (error) {
-      this.logger.log(JSON.stringify(error.message));
-      throw new BadRequestException(error.message);
+      this.handleError(error);
     }
   }
 
@@ -111,5 +94,20 @@ export class PostsService implements IPostsService {
     if (!post) throw new NotFoundException(`Post ${_id} not found`);
 
     await this.postsModel.deleteOne({ _id });
+  }
+
+  private getSlug(title: string) {
+    const titleLowerCase = title.toLocaleLowerCase();
+
+    const titleSplited = titleLowerCase.split(' ');
+
+    const slug = titleSplited.join('-');
+
+    return slug;
+  }
+
+  private handleError(error: any) {
+    this.logger.log(JSON.stringify(error.message));
+    throw new BadRequestException(error.message);
   }
 }
