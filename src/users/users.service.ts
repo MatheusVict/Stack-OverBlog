@@ -21,23 +21,24 @@ export class UsersService implements IUserService {
 
   private readonly logger = new Logger(UsersService.name);
 
-  async createUser(user: UserCreateDTO): Promise<User> {
+  async createUser(userDTO: UserCreateDTO): Promise<User> {
     try {
-      user.password = hashSync(user.password, 10);
-      const userCreated = new this.usersModel(user);
+      const hashedPassword = this.hashPassword(userDTO.password);
+      const userCreated = new this.usersModel({
+        ...userDTO,
+        password: hashedPassword,
+      });
       return await userCreated.save();
     } catch (error) {
-      this.logger.error(error.message);
-      throw new BadRequestException(error.message);
+      this.handleError(error);
     }
   }
 
   async getAll(): Promise<User[]> {
     try {
-      return await this.usersModel.find().select('-password');
-    } catch (error) {
-      this.logger.error(error.message);
-      throw new BadRequestException(error.message);
+      return await this.usersModel.find().select('-password').exec();
+    } catch (error: any) {
+      this.handleError(error);
     }
   }
 
@@ -49,17 +50,20 @@ export class UsersService implements IUserService {
 
       return userFind;
     } catch (error) {
-      this.logger.error(error.message);
-      throw new BadRequestException(error.message);
+      this.handleError(error);
     }
   }
 
   async getUserByEmail(email: string) {
     try {
-      return this.usersModel.findOne({ email });
+      const user = await this.usersModel.findOne({ email });
+      return user
+        ? user
+        : (() => {
+            throw new NotFoundException('User not found');
+          })();
     } catch (error) {
-      this.logger.error(error.message);
-      throw new BadRequestException(error.message);
+      this.handleError(error);
     }
   }
 
@@ -70,13 +74,12 @@ export class UsersService implements IUserService {
       if (!userFind) throw new NotFoundException('User Not Found');
 
       if (user.password) {
-        user.password = hashSync(user.password, 10);
+        user.password = this.hashPassword(user.password);
       }
 
       await this.usersModel.findOneAndUpdate({ _id: id }, { $set: user });
     } catch (error) {
-      this.logger.error(error.message);
-      throw new BadRequestException(error.message);
+      this.handleError(error);
     }
   }
 
@@ -88,8 +91,16 @@ export class UsersService implements IUserService {
 
       await this.usersModel.deleteOne({ _id: id });
     } catch (error) {
-      this.logger.error(error.message);
-      throw new BadRequestException(error.message);
+      this.handleError(error);
     }
+  }
+
+  private hashPassword(password: string): string {
+    return hashSync(password, 10);
+  }
+
+  private handleError(error: any): void {
+    this.logger.error(error.message);
+    throw new BadRequestException(error.message);
   }
 }
