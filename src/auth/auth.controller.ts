@@ -10,7 +10,6 @@ import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { Request } from 'express';
 import { OAuth2Client } from 'google-auth-library';
-import { createOAuthAppAuth } from '@octokit/auth-oauth-app';
 import { Octokit } from '@octokit/core';
 
 @Controller('auth')
