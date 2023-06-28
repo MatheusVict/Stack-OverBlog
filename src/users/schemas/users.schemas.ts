@@ -14,6 +14,9 @@ export class User extends mongoose.Document {
 
   @Prop()
   isAdm: number;
+
+  @Prop()
+  picture: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

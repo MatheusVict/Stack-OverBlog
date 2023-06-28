@@ -34,6 +34,7 @@ export class AuthService {
           email: credentials.email,
           name: credentials.name,
           password: 'oauth-password',
+          picture: credentials.picture,
         });
         const payload = { id: createdUser.id, email: createdUser.email };
 
@@ -69,6 +70,7 @@ export class AuthService {
           email: credentials.email,
           name: credentials.name,
           password: 'oauth-password',
+          picture: credentials.picture,
         });
         const payload = { id: createdUser.id, email: createdUser.email };
 

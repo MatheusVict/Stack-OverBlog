@@ -10,9 +10,10 @@ import { Commentarys } from './schemas/commentarys.schemas';
 import { PostsService } from 'src/posts/posts.service';
 import { UpdateCommentaryDTO } from './dto/update-commentarys.dto';
 import { CreateCommentaryDTO } from './dto/create-commentarys.dto';
+import { ICommentaryService } from './interfaces/IcommentaryService.interface';
 
 @Injectable()
-export class CommentarysService {
+export class CommentarysService implements ICommentaryService {
   constructor(
     @InjectModel('commentarys')
     private readonly commentarysModel: Model<Commentarys>,
