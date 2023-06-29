@@ -34,8 +34,7 @@ export class CommentarysService implements ICommentaryService {
         .in(idPost)
         .populate('userId');
     } catch (error) {
-      this.logger.error(error.message);
-      throw new BadRequestException(error.message);
+      this.handleError(error);
     }
   }
 
@@ -53,8 +52,7 @@ export class CommentarysService implements ICommentaryService {
 
       return commentary;
     } catch (error) {
-      this.logger.error(error.message);
-      throw new BadRequestException(error.message);
+      this.handleError(error);
     }
   }
 
@@ -69,8 +67,7 @@ export class CommentarysService implements ICommentaryService {
 
       await commentarys.save();
     } catch (error) {
-      this.logger.error(error.message);
-      throw new BadRequestException(error.message);
+      this.handleError(error);
     }
   }
 
@@ -86,8 +83,7 @@ export class CommentarysService implements ICommentaryService {
         { $set: body },
       );
     } catch (error) {
-      this.logger.error(error.message);
-      throw new BadRequestException(error.message);
+      this.handleError(error);
     }
   }
 
@@ -100,8 +96,12 @@ export class CommentarysService implements ICommentaryService {
 
       await this.commentarysModel.findByIdAndDelete(idComment);
     } catch (error) {
-      this.logger.error(error.message);
-      throw new BadRequestException(error.message);
+      this.handleError(error);
     }
+  }
+
+  private handleError(error: Error) {
+    this.logger.error(error.message);
+    throw new BadRequestException(error.message);
   }
 }
