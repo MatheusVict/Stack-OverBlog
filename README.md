@@ -15,7 +15,11 @@ This an API for my personal blog
 - copy ```.env.example``` to ```.env```
 - set your connection key with mongo, a private key for JWT authentication, then time for expires token
 - run in your terminal ```yarn start:dev```
-- open on port 3000
+- open on port 8000
+- [localhost](http://localhost:8000)
+
+### Docs
+- [Swagger](http://localhost:8000/docs)
 
 **or use Docker**
 
