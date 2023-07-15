@@ -36,7 +36,7 @@ jobs:
         env:
           ENV_FILE: ${{ secrets.ENV_FILE }}
         run: |
-          cp $ENV_FILE .env.production
+          echo "$ENV_FILE" > .env.production
           docker build -t ${{ secrets.DOCKER_USERNAME }}/stack-overblog-api:${{ github.run_id }} .
         
       - name: Push to Docker Hub Container Resgisty
