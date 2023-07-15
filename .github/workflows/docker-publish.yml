@@ -28,4 +28,10 @@ jobs:
         env:
           ENV_FILE: ${{ secrets.ENV_FILE }}
         run: |
-          echo ${{ secrets.ENV_FILE }}
+          docker build --build-arg ENV_FILE=${{ secrets.ENV_FILE }} -t ${{ secrets.DOCKER_USERNAME }}/stack-overblog-api:${{ github.run_id }} .
+
+      - name: Push to Docker Hub Container Registry
+        run: |
+          docker tag ${{ secrets.DOCKER_USERNAME }}/stack-overblog-api:${{ github.run_id }} ${{ secrets.DOCKER_USERNAME }}/stack-overblog-api:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/stack-overblog-api:${{ github.run_id }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/stack-overblog-api:latest
