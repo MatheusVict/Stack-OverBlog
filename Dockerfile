@@ -1,9 +1,11 @@
 FROM node:latest
 
 WORKDIR /usr/src/api
+ARG ENV_FILE
 
 COPY . .
-COPY ./.env .env.production
+
+COPY . $ENV_FILE
 
 RUN yarn install --quiet --no-optional --no-fund --loglevel=error
 
