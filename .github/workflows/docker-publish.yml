@@ -33,4 +33,4 @@ jobs:
         run: 'yarn install'
 
       - name: Debug ENV_FILE
-        run: echo ${{serects.ENV_FILE}}
+        run: echo ${{secrets.ENV_FILE}}
