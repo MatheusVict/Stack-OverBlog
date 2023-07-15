@@ -32,14 +32,5 @@ jobs:
       - name: Install dependencies
         run: 'yarn install'
 
-      - name: Build a Container Image
-        env:
-          ENV_FILE: ${{ secrets.ENV_FILE }}
-        run: |
-          docker build --build-arg ENV_FILE=$ENV_FILE ${{ secrets.DOCKER_USERNAME }}/stack-overblog-api:${{ github.run_id }} .
-        
-      - name: Push to Docker Hub Container Resgisty
-        run: |
-          docker tag ${{ secrets.DOCKER_USERNAME }}/stack-overblog-api:${{ github.run_id }} ${{ secrets.DOCKER_USERNAME }}/stack-overblog-api:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/stack-overblog-api:${{ github.run_id }}
-          docker push ${{ secrets.DOCKER_USERNAME }}/stack-overblog-api:latest
+      - name: Debug ENV_FILE
+        run: echo ${{serects.ENV_FILE}}
