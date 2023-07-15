@@ -6,7 +6,7 @@ WORKDIR /usr/src/api
 
 COPY . .
 
-COPY $ENV_FILE .env.production
+RUN cp $ENV_FILE .env.production
 
 RUN yarn install --quiet --no-optional --no-fund --loglevel=error
 
