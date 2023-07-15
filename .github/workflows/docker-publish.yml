@@ -30,7 +30,7 @@ jobs:
           cache: 'yarn'
           
       - name: Install dependencies
-        run: yarn install'
+        run: 'yarn install'
 
       - name: Build Book service Container Image
         run: |
