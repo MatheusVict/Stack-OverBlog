@@ -28,5 +28,4 @@ jobs:
         env:
           ENV_FILE: ${{ secrets.ENV_FILE }}
         run: |
-          echo "$ENV_FILE" > .env
-          echo $ENV_FILE
+          echo ${{ secrets.ENV_FILE }}
