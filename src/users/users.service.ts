@@ -57,11 +57,11 @@ export class UsersService implements IUserService {
   async getUserByEmail(email: string) {
     try {
       const user = await this.usersModel.findOne({ email });
-      return user
-        ? user
-        : (() => {
-            throw new NotFoundException('User not found');
-          })();
+
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+      return user;
     } catch (error) {
       this.handleError(error);
     }
