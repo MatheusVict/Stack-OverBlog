@@ -59,9 +59,29 @@ export class UsersController {
     description: 'Unauthorized.',
     type: ErrorRequestSwagger,
   })
-  async findAll(@Query('userId') userId: string) {
-    if (!userId) return await this.usersService.getAll();
+  async findAll() {
+    return await this.usersService.getAll();
+  }
 
+  @UseGuards(AuthGuard('jwt'))
+  @Get()
+  @ApiOperation({ summary: 'Get user' })
+  @ApiResponse({
+    status: 200,
+    description: 'Return user',
+    type: IndexUserSwagger,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+    type: ErrorRequestSwagger,
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized.',
+    type: ErrorRequestSwagger,
+  })
+  async findOne(@Query('userId') userId: string) {
     return await this.usersService.getOneForId(userId);
   }
 
