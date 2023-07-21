@@ -4,7 +4,7 @@ import * as mongoose from 'mongoose';
 
 @Schema({ timestamps: true, collection: 'users' })
 export class User {
-  @Prop()
+  @Prop({ type: mongoose.Schema.Types.ObjectId, auto: true })
   _id: mongoose.Types.ObjectId;
 
   @Prop()
