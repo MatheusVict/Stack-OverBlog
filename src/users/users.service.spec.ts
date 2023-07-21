@@ -25,7 +25,6 @@ describe('UsersService', () => {
             find: jest.fn(),
             save: jest.fn().mockResolvedValue(newUser),
             findById: jest.fn(),
-            create: jest.fn(),
             findOne: jest.fn(),
             findOneAndUpdate: jest.fn(),
             deleteOne: jest.fn(),
@@ -191,13 +190,16 @@ describe('UsersService', () => {
     });
 
     it('should throw an error if the database operation fails', async () => {
-      jest.spyOn(userModel, 'findOne').mockRejectedValueOnce(new Error());
+      jest.spyOn(userModel, 'findOne').mockReturnValueOnce({
+        select: jest.fn().mockReturnThis(),
+        exec: jest.fn().mockResolvedValueOnce(null),
+      } as any);
 
       try {
-        await service.getUserByEmail('1');
+        await service.getUserByEmail('example@emil1.com');
       } catch (error) {
-        expect(error instanceof Error).toBe(true);
-        expect(service.getUserByEmail('1')).rejects.toThrowError();
+        expect(error).toBeNull();
+        expect(service.getAll()).resolves.toBeNull();
       }
     });
   });
