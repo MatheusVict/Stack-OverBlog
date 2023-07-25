@@ -11,18 +11,24 @@ import { AuthService } from './auth.service';
 import { Request } from 'express';
 import { OAuth2Client } from 'google-auth-library';
 import { Octokit } from '@octokit/core';
+import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { BodyLogin } from './swagger/login-body.swagger';
 
 @Controller('auth')
+@ApiTags('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @UseGuards(AuthGuard('local'))
+  @ApiOperation({ summary: 'Login with email and password' })
+  @ApiBody({ type: BodyLogin })
   @Post('login')
   async login(@Req() req: Request) {
     return this.authService.login(req.user);
   }
 
   @Post('login/google')
+  @ApiOperation({ summary: 'Login with Google' })
   async loginWithGoogle(@Body('id_token') token) {
     console.log(JSON.stringify(token));
     try {
@@ -50,6 +56,7 @@ export class AuthController {
   }
 
   @Post('login/github')
+  @ApiOperation({ summary: 'Login with GitHub' })
   async loginWithGitHub(@Body('access_token') token: any) {
     console.log(JSON.stringify(token));
     try {

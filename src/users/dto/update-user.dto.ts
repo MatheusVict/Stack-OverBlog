@@ -1,8 +1,10 @@
+import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsOptional, IsString, IsStrongPassword } from 'class-validator';
 
 export class UpdateUserDTO {
   @IsOptional()
   @IsString()
+  @ApiPropertyOptional()
   name: string;
 
   @IsString()
@@ -13,8 +15,10 @@ export class UpdateUserDTO {
     minSymbols: 1,
     minUppercase: 1,
   })
+  @ApiPropertyOptional()
   password: string;
 
   @IsOptional()
+  @ApiPropertyOptional()
   picture: string;
 }

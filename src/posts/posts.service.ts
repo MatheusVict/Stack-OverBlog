@@ -22,17 +22,17 @@ export class PostsService implements IPostsService {
 
   private readonly logger = new Logger(PostsService.name);
 
-  async createPost(data: CreatePostsDTO): Promise<void> {
+  async createPost(data: CreatePostsDTO, userID: string): Promise<Posts> {
     try {
-      const user = await this.usersService.getOneForId(data.idUser);
+      const user = await this.usersService.getOneForId(userID);
 
-      if (!user) throw new BadRequestException(`User ${data.idUser} not found`);
+      if (!user) throw new BadRequestException(`User ${userID} not found`);
 
       const post = new this.postsModel(data);
 
       post.slug = this.getSlug(post.title);
 
-      await post.save();
+      return await post.save();
     } catch (error) {
       this.handleError(error);
     }

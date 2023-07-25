@@ -23,12 +23,40 @@ export class UsersService implements IUserService {
 
   async createUser(userDTO: UserCreateDTO): Promise<User> {
     try {
+      if (await this.usersEmailAlreadyExists(userDTO.email))
+        throw new BadRequestException('User already exists');
+
       const hashedPassword = this.hashPassword(userDTO.password);
+
       const userCreated = new this.usersModel({
         ...userDTO,
         password: hashedPassword,
       });
       return await userCreated.save();
+    } catch (error) {
+      this.handleError(error);
+    }
+  }
+
+  async usersEmailAlreadyExists(email: string): Promise<boolean> {
+    try {
+      const user = await this.getUserByEmail(email);
+
+      return !!user;
+    } catch (error) {
+      this.handleError(error);
+      this.logger.error(error.message);
+    }
+  }
+
+  async getUserByEmail(email: string) {
+    try {
+      const user = await this.usersModel.findOne({ email });
+
+      if (!user) {
+        return null;
+      }
+      return user;
     } catch (error) {
       this.handleError(error);
     }
@@ -49,19 +77,6 @@ export class UsersService implements IUserService {
       if (!userFind) throw new NotFoundException('User not found');
 
       return userFind;
-    } catch (error) {
-      this.handleError(error);
-    }
-  }
-
-  async getUserByEmail(email: string) {
-    try {
-      const user = await this.usersModel.findOne({ email });
-      return user
-        ? user
-        : (() => {
-            throw new NotFoundException('User not found');
-          })();
     } catch (error) {
       this.handleError(error);
     }
