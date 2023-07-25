@@ -6,7 +6,7 @@
 This an API for my personal blog
 
 - node: 18.14.0
-- nest: 9.1.4
+- nest-js: 9.1.4
 - yarn: 1.22.19
 
 ## Steps:
@@ -53,7 +53,10 @@ docker run portifolioblog
 
 ```json
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGUiLCJlbWFpbCI6Im1hdGhldXMxQGd"
+  "id": "13asfddadf8a1sdffads",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGUiLCJlbWFpbCI6Im1hdGhldXMxQGd",
+  "name": "userName",
+  "email": "userEmail@email.com",
 }
 ```
 **This is a Bearer token**
@@ -68,9 +71,9 @@ docker run portifolioblog
 
 ```json
 {
-  "name": String,
-  "email": String,
-  "password": String
+  "name": "jhoe",
+  "email": "example@email.com",
+  "password": "1A@powerÇ"
 }
 ```
 
@@ -87,21 +90,23 @@ Status code: ```201``` ```Created```
 ```json
 [
   {
-    "_id": String,
-    "name": String,
-    "email": String,
+    "_id": "fjadklf544faf1af1sd5f",
+    "name": "jhoe",
+    "email": "example@email.com",
+    "picture": "https://www.google.com.br"
     "createdAt": "2023-01-31T00:12:22.123Z",
     "updatedAt": "2023-02-06T23:55:45.965Z",
     "__v": 0
   },
   {
-    "_id": String,
-    "name": String,
-    "email": String,
+    "_id": "fe513531d5sdsfa",
+    "name": "jhoe lee",
+    "email": "example12@email.com",
+    "picture": "https://www.google.com.br"
     "createdAt": "2023-01-31T00:12:22.123Z",
     "updatedAt": "2023-02-06T23:55:45.965Z",
     "__v": 0
-  }
+  },
 ]
 ```
 
@@ -117,13 +122,14 @@ Status code: ```200``` ```ok```
 
 ```json
 {
-  "_id": String,
-  "name": String,
-  "email": String,
+  "_id": "fe513531d5sdsfa",
+  "name": "jhoe lee",
+  "email": "example12@email.com",
+  "picture": "https://www.google.com.br"
   "createdAt": "2023-01-31T00:12:22.123Z",
   "updatedAt": "2023-02-06T23:55:45.965Z",
   "__v": 0
-}
+},
 ```
 
 Status code: ```200``` ```ok``` 
@@ -137,8 +143,9 @@ Status code: ```200``` ```ok```
 
 ```json
 {
-  "name": String,
-  "password": String,
+  "name": "update user",
+  "password": "12356",
+  "picture": "https://www.google.com.br"
 }
 ```
 
@@ -167,9 +174,9 @@ Status code: ```204``` ```No Content```
 
 ```json
 {
-  "title": String,
-  "content": String,
-  "idUser":  ObjectId("User Id")
+  "title": "Great Title",
+  "content": "hello word",
+  "idUser":  "asdfjlçk1655"
 }
 ```
 
@@ -186,18 +193,18 @@ Status code: ```201``` ```Created```
 
 ```json
 {
-  "_id": String,
-  "title": String,
-  "content": String,
+  "_id": "çasdfjkldfas",
+  "title": "Great Title",
+  "content": "hello word",
   "idUser": {
-    "_id": String,
-    "name": String,
-    "email": String,
+    "_id": "jfkadlsfa",
+    "name": "jhoe le",
+    "email": "exampleEmail@email.com",
     "createdAt": "2023-01-31T00:12:22.123Z",
     "updatedAt": "2023-02-06T23:55:45.965Z",
     "__v": 0
   },
-  "slug": String,
+  "slug": "great-title",
   "createdAt": "2023-02-11T22:32:10.691Z",
   "updatedAt": "2023-02-11T23:43:53.269Z",
   "__v": 0
@@ -215,18 +222,18 @@ Status code: ```200``` ```ok```
 
 ```json
 {
-  "_id": String,
-  "title": String,
-  "content": String,
+  "_id": "kdfljas65135",
+  "title": "Great Title",
+  "content": "Hello world",
   "idUser": {
-    "_id": String,
-    "name": String,
-    "email": String,
+    "_id": "46513adfsf5as",
+    "name": "jho lee",
+    "email": "exampleEmail@email.com",
     "createdAt": "2023-01-31T00:12:22.123Z",
     "updatedAt": "2023-02-06T23:55:45.965Z",
     "__v": 0
   },
-  "slug": String,
+  "slug": "great-title",
   "createdAt": "2023-02-11T22:32:10.691Z",
   "updatedAt": "2023-02-11T23:43:53.269Z",
   "__v": 0
@@ -246,22 +253,22 @@ Status code: ```200``` ```ok```
 ```json
 [
   {
-    "_id": String,
-    "title": String,
-    "content": String,
+    "_id": "kdfljas65135",
+    "title": "Great Title",
+    "content": "Hello world",
     "idUser": {
-      "_id": ObjectId,
-      "name": String,
-      "email": String,
-      "createdAt": "2023-01-31T00:12:22.123Z",
-      "updatedAt": "2023-02-06T23:55:45.965Z",
+      "_id": "46513adfsf5as",
+      "name": "jho lee",
+      "email": "exampleEmail@email.com",
+      "createdAt": "2023-01-31T00:12:22123Z",
+      "updatedAt": "2023-02-06T23:55:45965Z",
       "__v": 0
     },
-    "slug": String,
+    "slug": "great-title",
     "createdAt": "2023-02-11T22:32:10.691Z",
     "updatedAt": "2023-02-11T23:43:53.269Z",
     "__v": 0
-  }
+}
 ]
 ```
 
@@ -307,18 +314,18 @@ Status coderuby: ```204``` ```No Content```
 ```json
  [
   {
-    "_id": String,
+    "_id": "fads561asd",
     "userId": {
-      "_id": ObjectId,
-      "name": String,
-      "email": String,
+      "_id": "561adfs35",
+      "name": "jho lee",
+      "email": "exampleEmail@email.com",
       "createdAt": "2023-01-31T00:12:22.123Z",
       "updatedAt": "2023-02-06T23:55:45.965Z",
       "__v": 0
     },
-    "content": String,
+    "content": "hello world",
     "likes": [],
-    "idPost": String,
+    "idPost": "fadjslkfas45fdas",
     "createdAt": "2023-02-23T00:04:01.141Z",
     "updatedAt": "2023-02-23T00:08:52.272Z",
     "__v": 0
@@ -338,18 +345,18 @@ Status code: ```200``` ```ok```
 ```json
  [
   {
-    "_id": String,
+    "_id": "fads561asd",
     "userId": {
-      "_id": ObjectId,
-      "name": String,
-      "email": String,
+      "_id": "561adfs35",
+      "name": "jho lee",
+      "email": "exampleEmail@email.com",
       "createdAt": "2023-01-31T00:12:22.123Z",
       "updatedAt": "2023-02-06T23:55:45.965Z",
       "__v": 0
     },
-    "content": String,
+    "content": "hello world",
     "likes": [],
-    "idPost": String,
+    "idPost": "fadjslkfas45fdas",
     "createdAt": "2023-02-23T00:04:01.141Z",
     "updatedAt": "2023-02-23T00:08:52.272Z",
     "__v": 0
