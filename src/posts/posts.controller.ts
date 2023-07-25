@@ -9,6 +9,7 @@ import {
   Post,
   Put,
   Query,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
@@ -18,6 +19,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { IndexPostSwagger } from './swagger/index-post.swagger';
 import { ErrorRequestSwagger } from 'src/helpers/swagger/error-request-swagger';
+import { Request } from 'express';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('posts')
@@ -41,8 +43,8 @@ export class PostsController {
     description: 'Unauthorized.',
     type: ErrorRequestSwagger,
   })
-  async createPost(@Body() data: CreatePostsDTO) {
-    await this.postsService.createPost(data);
+  async createPost(@Body() data: CreatePostsDTO, @Req() req: Request) {
+    await this.postsService.createPost(data, req.user['id']);
   }
 
   @Get()
