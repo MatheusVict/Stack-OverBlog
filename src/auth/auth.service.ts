@@ -100,6 +100,8 @@ export class AuthService {
 
     try {
       user = await this.usersService.getUserByEmail(email);
+
+      if (!user) return null;
     } catch (error) {
       return null;
     }

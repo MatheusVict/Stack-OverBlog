@@ -11,9 +11,4 @@ export class CreatePostsDTO {
   @IsString()
   @ApiProperty()
   content: string;
-
-  @IsNotEmpty()
-  @IsString()
-  @ApiProperty()
-  idUser: string;
 }
